@@ -5,6 +5,8 @@ import { AppService } from "./app.service";
 import { DatabaseConnectionService } from "./database-connection.service";
 import { AuthModule } from "./auth/auth.module";
 import { VideosModule } from "./videos/videos.module";
+import { PortfolioModule } from './portfolio/portfolio.module';
+import { BlogModule } from './blog/blog.module';
 
 @Module({
   imports: [
@@ -12,7 +14,9 @@ import { VideosModule } from "./videos/videos.module";
       useClass: DatabaseConnectionService,
     }),
     AuthModule,
-    VideosModule
+    VideosModule,
+    PortfolioModule,
+    BlogModule
   ],
   controllers: [AppController],
   providers: [AppService],
