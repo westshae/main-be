@@ -19,7 +19,7 @@ export class AuthService {
     if ((await this.authRepo.findOne({ email: email })) === undefined) {
       this.registerAccount(email);
     }
-
+    
     let code = (Math.floor(Math.random() * 90000000) + 1000000000).toString(); // Generates 8 digit number
     this.sendEmail(code, email);
     let saltHashed = await bcrypt.hash(code, 10);
