@@ -16,22 +16,4 @@ export class AuthEntity {
 
     @Column('boolean', {default: false})
     userIsAdmin: boolean;
-
-    @Column({nullable:true})
-    profession: string;
-
-    @Column({nullable:true})
-    country: string;
-
-    @Column({nullable:true})
-    city: string;
-
-    @Column()
-    balance: number;
-
-    @Column()
-    ratings:number;
-
-    @Column()
-    ratingTotal:number;
 } 

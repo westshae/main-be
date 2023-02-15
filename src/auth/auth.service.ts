@@ -6,7 +6,6 @@ import * as nodemailer from "nodemailer";
 import * as bcrypt from "bcrypt";
 import * as jwt from "jsonwebtoken";
 import "dotenv/config";
-import axios from "axios";
 import { checkEmail, checkToken } from "src/utility/sanitise";
 
 @Injectable()
@@ -37,44 +36,7 @@ export class AuthService {
     if(!checkEmail(email)) return false;
     this.authRepo.insert({
       email: email,
-      balance: 0,
-      ratings: 0,
-      ratingTotal: 0,
     });
-  }
-
-  async getSettings(email: string, token: string) {
-    if (!checkEmail(email) || !checkToken(email, token)) return;
-    let data = await this.authRepo.findOne({ email: email });
-    let settings = {
-      city: data.city,
-      country: data.country,
-      balance: data.balance,
-      profession: data.profession,
-    };
-    return settings;
-  }
-
-  async updateSettings(email: string, token: string, settings: Array<any>) {
-    for (let key in settings) {
-      console.log(key);
-      switch (parseInt(key)) {
-        case 0: //City
-          this.authRepo.update({ email: email }, { city: settings[key] });
-          break;
-        case 1: //Country
-          this.authRepo.update({ email: email }, { country: settings[key] });
-          break;
-
-        case 2: //Balance
-          this.authRepo.update({ email: email }, { balance: settings[key] });
-          break;
-
-        case 3: //Profession
-          this.authRepo.update({ email: email }, { profession: settings[key] });
-          break;
-      }
-    }
   }
 
   async checkCode(email: string, code: string) {

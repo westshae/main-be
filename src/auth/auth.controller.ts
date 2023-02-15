@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Query } from "@nestjs/common";
+import { Controller, Get, Query } from "@nestjs/common";
 import { checkEmail, checkToken } from "src/utility/sanitise";
 import { AuthService } from "./auth.service";
 @Controller("auth")
@@ -36,28 +36,4 @@ export class AuthController {
       console.error(e);
     }
   }
-
-  @Get("settings/get/")
-  async settings(@Query() query){
-    let email = query.email;
-    let token = query.token;
-
-    if(!checkEmail(email) || !checkToken(email,token)) return false;
-
-    let settings = await this.authService.getSettings(email, token);
-    
-    return settings;
-  }
-
-  @Post("settings/update/")
-  async settingsUpdate(@Body() body){
-    let email = body.email;
-    let token = body.token;
-
-    if(!checkEmail(email) || !checkToken(email, token)) return false;
-    console.log(checkToken(email, token));
-
-    let settings = body.settings;
-    this.authService.updateSettings(email, token, settings);
-  }  
 }
