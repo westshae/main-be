@@ -33,6 +33,7 @@ export class PortfolioService {
     let collection:Array<formattedRepo> = [];
 
     for(let repo of data){
+      let date = new Date(repo.updated_at);
       collection.push({
         id: repo.id,
         name: repo.name,
@@ -41,7 +42,7 @@ export class PortfolioService {
         url: repo.html_url,
         language: repo.language,
         archived: repo.archived,
-        updatedAt: repo.pushed_at  
+        updatedAt: (date.getDate() + "/" + (date.getMonth()+1) + "/" + date.getFullYear()),
       });
     }
 
