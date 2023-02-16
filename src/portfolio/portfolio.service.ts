@@ -11,6 +11,7 @@ interface formattedRepo{
   language:string,
   archived:boolean,
   updatedAt:string,
+  updatedAtFormatted:string,
 }
 
 @Injectable()
@@ -34,6 +35,15 @@ export class PortfolioService {
 
     for(let repo of data){
       let date = new Date(repo.updated_at);
+      const yyyy = date.getFullYear();
+      let mm:any = date.getMonth() + 1; // Months start at 0!
+      let dd:any = date.getDate();
+
+      if (dd < 10) dd = '0' + dd;
+      if (mm < 10) mm = '0' + mm;
+
+      const formattedDate = dd + '/' + mm + '/' + yyyy;
+
       collection.push({
         id: repo.id,
         name: repo.name,
@@ -42,7 +52,8 @@ export class PortfolioService {
         url: repo.html_url,
         language: repo.language,
         archived: repo.archived,
-        updatedAt: (date.getDate() + "/" + (date.getMonth()+1) + "/" + date.getFullYear()),
+        updatedAtFormatted: formattedDate,
+	updatedAt: repo.updated_at,
       });
     }
 
