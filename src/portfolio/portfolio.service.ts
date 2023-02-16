@@ -11,7 +11,6 @@ interface formattedRepo{
   language:string,
   archived:boolean,
   updatedAt:string,
-  languages:Array<{name:string, lines:number}>,
 }
 
 @Injectable()
@@ -34,15 +33,6 @@ export class PortfolioService {
     let collection:Array<formattedRepo> = [];
 
     for(let repo of data){
-      let reponse = await axios
-        .get("https://api.github.com/repos/westshae/" + repo.name + "/languages",
-        {
-          headers:{
-            Authorization: `Bearer ${process.env.GITPERSONALACCESSTOKEN}`,
-          }
-        });
-
-
       collection.push({
         id: repo.id,
         name: repo.name,
@@ -51,8 +41,7 @@ export class PortfolioService {
         url: repo.html_url,
         language: repo.language,
         archived: repo.archived,
-        updatedAt: repo.pushed_at,
-        languages: reponse.data        
+        updatedAt: repo.pushed_at  
       });
     }
 
