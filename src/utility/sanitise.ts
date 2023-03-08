@@ -13,6 +13,7 @@ const checkToken = (email:string, token:string) =>{
   if(!checkEmail(email)) return false;
   try {
     const decoded = jwt.verify(token, process.env.PRIVATEKEY) as jwt.JwtPayload;
+    console.log(decoded);
     if(decoded === null){
       return false;
     }else {

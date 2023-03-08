@@ -53,12 +53,9 @@ export class PortfolioService {
         language: repo.language,
         archived: repo.archived,
         updatedAtFormatted: formattedDate,
-	updatedAt: repo.updated_at,
+        updatedAt: repo.updated_at,
       });
     }
-
-    collection.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
-
     return collection;
   }
 }

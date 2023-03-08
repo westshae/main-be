@@ -53,16 +53,13 @@ export class AuthService {
       let timeDifference = 300000; // 5 minutes in milliseconds
       if (date.getMilliseconds() + timeDifference > currentDate) return false;
 
-      let success = await bcrypt.compare(code, account.protPass); //Returns if password was successful or not.
-
+      let success = await bcrypt.compare(code, account.protPass); //Returns if password was successful or not
       let payload = { email: account.email };
       let access_token = jwt.sign(payload, process.env.PRIVATEKEY);
-
       if (success) {
         account.passUsed = true;
         this.authRepo.update({ email: email }, account);
       }
-
       return {
         access_token: access_token,
       };
